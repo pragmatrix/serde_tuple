@@ -92,7 +92,7 @@ pub fn derive_serialize_tuple(input: TokenStream) -> TokenStream {
             where
                 S: serde::Serializer
             {
-                #[derive(serde_derive::Serialize)]
+                #[derive(serde::Serialize)]
                 #serde_rename_line
                 #(#attrs)*
                 struct Inner #inner_ty_generics (#(#field_tys,)*);
@@ -163,7 +163,7 @@ pub fn derive_deserialize_tuple(input: TokenStream) -> TokenStream {
             where
                 D: serde::Deserializer<'de>,
             {
-                #[derive(serde_derive::Deserialize)]
+                #[derive(serde::Deserialize)]
                 #serde_rename_line
                 #(#attrs)*
                 struct Inner #ty_generics (#(#field_tys,)*);
