@@ -4,7 +4,7 @@
 //!
 //! ```
 //! use serde_tuple::*;
-//! 
+//!
 //! #[derive(Serialize_tuple, Deserialize_tuple)]
 //! pub struct Foo<'a> {
 //!     bar: &'a str,
@@ -51,15 +51,26 @@ pub fn derive_serialize_tuple(input: TokenStream) -> TokenStream {
     let ident_str = &ident.to_string();
     let attrs = &item.attrs;
 
-    let serde_rename_line = if attrs.iter()
-        .flat_map(|x| x.parse_meta() )
-        .filter_map(|x| match x { Meta::List(y) => Some(y), _ => None })
-        .filter(|x| x.ident == "serde" )
-        .flat_map(|x| x.nested.into_iter() )
-        .filter_map(|x| match x { NestedMeta::Meta(y) => Some(y), _ => None })
-        .filter_map(|x| match x { Meta::NameValue(y) => Some(y), _ => None })
-        .find(|x| x.ident == "rename" )
-        .is_some() {
+    let serde_rename_line = if attrs
+        .iter()
+        .flat_map(|x| x.parse_meta())
+        .filter_map(|x| match x {
+            Meta::List(y) => Some(y),
+            _ => None,
+        })
+        .filter(|x| x.ident == "serde")
+        .flat_map(|x| x.nested.into_iter())
+        .filter_map(|x| match x {
+            NestedMeta::Meta(y) => Some(y),
+            _ => None,
+        })
+        .filter_map(|x| match x {
+            Meta::NameValue(y) => Some(y),
+            _ => None,
+        })
+        .find(|x| x.ident == "rename")
+        .is_some()
+    {
         None
     } else {
         Some(quote!(#[serde(rename = #ident_str)]))
@@ -114,15 +125,26 @@ pub fn derive_deserialize_tuple(input: TokenStream) -> TokenStream {
     let ident_str = &ident.to_string();
     let attrs = &item.attrs;
 
-    let serde_rename_line = if attrs.iter()
-        .flat_map(|x| x.parse_meta() )
-        .filter_map(|x| match x { Meta::List(y) => Some(y), _ => None })
-        .filter(|x| x.ident == "serde" )
-        .flat_map(|x| x.nested.into_iter() )
-        .filter_map(|x| match x { NestedMeta::Meta(y) => Some(y), _ => None })
-        .filter_map(|x| match x { Meta::NameValue(y) => Some(y), _ => None })
-        .find(|x| x.ident == "rename" )
-        .is_some() {
+    let serde_rename_line = if attrs
+        .iter()
+        .flat_map(|x| x.parse_meta())
+        .filter_map(|x| match x {
+            Meta::List(y) => Some(y),
+            _ => None,
+        })
+        .filter(|x| x.ident == "serde")
+        .flat_map(|x| x.nested.into_iter())
+        .filter_map(|x| match x {
+            NestedMeta::Meta(y) => Some(y),
+            _ => None,
+        })
+        .filter_map(|x| match x {
+            Meta::NameValue(y) => Some(y),
+            _ => None,
+        })
+        .find(|x| x.ident == "rename")
+        .is_some()
+    {
         None
     } else {
         Some(quote!(#[serde(rename = #ident_str)]))

@@ -3,18 +3,18 @@ use serde_tuple::*;
 use std::borrow::Cow;
 
 #[derive(Debug, Serialize_tuple, Deserialize_tuple)]
-#[serde(rename="FOO")]
+#[serde(rename = "FOO")]
 #[serde(deny_unknown_fields)]
 pub struct Foo<'a, T: serde::Serialize + serde::de::DeserializeOwned> {
     string: &'a str,
     #[serde(skip)]
     baz: i32,
-    other: T
+    other: T,
 }
 
 #[derive(Debug, serde_derive::Serialize, serde_derive::Deserialize)]
 pub struct Bar {
-    count: i32
+    count: i32,
 }
 
 fn main() {
